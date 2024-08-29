@@ -1,0 +1,118 @@
+.postdiv {
+    max-width: 100%;
+    max-height: 100%;
+    color: #585858;
+    border: solid 1px #bebdbd;
+    margin-top: 30px;
+    margin-bottom: 90px;
+    text-align: justify;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 30px 80px;
+}   
+
+.postdiv h1 {
+    font-size: 35px;
+    line-height: 1;
+    margin-top: 10px;
+    margin-bottom: 7px;
+}
+.postdiv h2 {
+    font-weight: bold;
+    font-size: 26px;
+    margin-top: 16px;
+    margin-bottom: 3px;
+    }
+
+.postdiv h3 {
+    font-style: italic;
+    font-weight: normal;
+    border-left: 2.8px solid #F08A0D;
+    font-size: 22px ;
+    padding-left: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    }
+
+.postdiv h5 {
+    font-weight: bold;
+    font-size: 21px;
+    margin: 0px;
+    padding-top: 3px;
+    }
+
+.postdiv p {
+    font-size: 18px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    }
+
+.postdiv hr{
+    margin-bottom: 18px;
+    margin-top: 18px;
+}
+
+.list-f {
+    margin-top: 4px;
+    margin-right: 5px;
+}
+
+.postdiv img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.postdiv li {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.icon {
+    display: inline;
+    padding-left: 20px;
+    padding-right: 10px ;
+    float:left;
+}
+
+.gogo {
+    text-align: right;
+    font-size: 15px;
+}
+
+.postdiv a { 
+    color: inherit; 
+    text-decoration: none;
+} 
+  
+.postdiv a:hover {
+    color: #F08A0D;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+
+.postdiv a:active {
+    color: #F08A0D;
+}
+
+.recipe-nav{
+    list-style-type: none;
+    margin-top: 3%;
+    margin-left: 12%;
+}
+
+.recipe-nav li{
+    display: inline;
+}
+
+.recipe-nav a{
+    text-decoration: none;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: grey;
+}
+
+.recipe-nav a:hover{
+    transition: all ease 0.3s;
+    color: rgb(211, 140, 9)
+}

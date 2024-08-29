@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="login.js"></script>
+    <link rel="icon" type="image/x-icon" href="CROI.png">
+    <title>Christine's Recipe: Home</title>
+    <meta charset="utf-8">
+    <meta  name="viewport" content="width=device-width, initial-scale=1.0"> 
+    
+</head>
+
+<body>
+    <nav >
+        <ul class="navbar"><b>
+            <li><a href="Index.html">HOME</a>  </li>
+            <li><a href="All_Recipes.html">ALL RECIPES</a> </li>
+            <li><a href="About.html">ABOUT</a> </li>
+            <li><a href="Contact.html">CONTACT</a> </li>
+            <li><a href="#" id="loginButton">LOGIN</a></li>
+        </b></ul>
+    </nav>
+    
+    <div id="loginForm" class="login-form">
+        <span id="closeForm" class="close">&times;</span>
+        <div class="login-parent" id="loginParent">
+            <h2>Login</h2>
+            <input type="text" id="usname" name="usname" placeholder="Username">
+            <input type="password" id="pw" name="pw" placeholder="Password">
+            <button onclick="loginvalidate()" type="button">Login</button>
+        </div>
+    </div>
+
+
+    <header>
+    <div class="container">
+        <div class="hero-box">
+            <div class="heading">
+                <h1>Christine's Recipe</h1>
+                <h5 class="subheading">Where Every Flavour Tells a Story.</h5>
+            </div>
+        </div>
+    </div>
+    </header>
+
+    <main>
+        <div class="indexMainContainer"> 
+            <div class="child1"> </div>
+            <div class="child2">
+            <h2 class="section-title">Deliciously Fast:<br>
+                Simple Recipes for Busy Foodies without Compromising Flavor.
+            </h2>
+            <div class="content">
+                <div class="img-container1" style="background-image: url(osso-buco_1.jpg);">
+                    <div class="img-box"> 
+                        <div><a href="instant_pot.html"><h6 class="tag">Instant Pot </h6></a></div>
+                        <div><a href="OssoBuco.html"><h2 class="img-title">Osso Buco</h2></a></div>
+                    </div>    
+                </div>
+                <div class="img-container1" style="background-image: url(ragu_cropped.jpg);">
+                    <div class="img-box"> 
+                        <div><a href="instant_pot.html"><h6 class="tag">Instant Pot </h6></a></div>
+                        <div><a href="shortribragu.html"><h2 class="img-title">Short Rib Ragu</h2></a></div>
+                    </div>    
+                </div>
+            </div>
+
+            <h2 class="section-title">From Farm to Plate:<br>
+                Living the Green Life.
+            </h2>
+            <div class="content">
+                <div class="img-container1" style="background-image: url(curry_1.jpg);">
+                    <div class="img-box"> 
+                        <div><a href="vegan.html"><h6 class="tag">Vegan </h6></a></div>
+                        <div><a href="coconutchick.html"><h2 class="img-title">Coconut Chickpea Curry Rice</h2></a></div>
+                    </div>    
+                </div>
+                <div class="img-container1" style="background-image: url(tofu_1.jpg);">
+                    <div class="img-box"> 
+                        <div><a href="vegan.html"><h6 class="tag">Vegan </h6></a></div>
+                        <div><a href="baked-teriyaki.html"><h2 class="img-title">Baked Teriyaki Tofu and Cauliflower</h2></a></div>
+                    </div>    
+                </div>
+            </div>
+
+            <h2 class="section-title">"Desserted" Life:<br>
+                Unlock The Ultimate Sweetness With Every Bite.
+            </h2>
+            <div class="content">
+                <div class="img-container1" style="background-image: url(chocolate-pancakes-2.jpg);">
+                    <div class="img-box"> 
+                        <div><a href="desserts.html"><h6 class="tag">Desserts </h6></a></div>
+                        <div><a href="chocopancake.html"><h2 class="img-title">Soft and Chewy Double Chocolate Pancake</h2></a></div>
+                    </div>    
+                </div>           
+                <div class="img-container1" style="background-image: url(No-Bake-Cheesecake.jpg);">
+                    <div class="img-box"> 
+                        <div><a href="desserts.html"><h6 class="tag">Desserts </h6></a></div>
+                        <div><a href="nobake-cheesecake.html"><h2 class="img-title">No-Bake Cheesecake</h2></a></div>
+                    </div>    
+                </div>
+            </div>
+            <hr class="hrline3"><br>
+
+            <h2 class="section-title">Chef's All Time Fav:<br>
+                Taste the Best with Our Top 3 Recipes.
+            </h2>
+            <div class="content2">
+                <div class="img-container2" style="background-image: url(osso-buco_1.jpg);">
+                    <div class="img-box2"> 
+                        <div><a href="instant_pot.html"><h6 class="tag2">Instant Pot </h6></a></div>
+                        <div><a href="OssoBuco.html"><h2 class="img-title2">Osso Buco</h2></a></div>
+                    </div>    
+                </div>           
+                <div class="img-container2" style="background-image: url(meatball_2.jpg);">
+                    <div class="img-box2"> 
+                        <div><a href="vegan.html"><h6 class="tag2">Vegan </h6></a></div>
+                        <div><a href="glutenfree.html"><h2 class="img-title2">Gluten-Free Meatball</h2></a></div>
+                    </div>    
+                </div>
+
+                <div class="img-container2" style="background-image: url(creme_1.jpeg);">
+                    <div class="img-box2"> 
+                        <div><a href="desserts.html"><h6 class="tag2">Desserts</h6></a></div>
+                        <div><a href="cremebrulee.html"><h2 class="img-title2">Vanilla Crème Brûlée</h2></a></div>
+                    </div>    
+                </div>
+            </div>
+            </div>
+            <div class="child3"> </div>
+        </div>
+        <a href="All_Recipes.html"><button class="button">All Posts</button></a>
+        
+    </main>
+
+<br>
+
+    <!-- footer -->
+    <footer class="patterns">
+        <div class="container-footer">
+        <div>
+            <div>
+                <a href="https://instagram.com/christinesrecipesandfoodblog?igshid=MzRlODBiNWFlZA==" target="_blank">
+                    <div>
+                        <img  style="display: inline-block;" src = "ig.png"  height = "21" width = "18" alt = "Instagram Logo"> 
+                        <p class="p-custom"> Instagram</p> 
+                    </div>  
+                </a>
+    
+                <br>
+    
+                <a href="https://pin.it/5fAIn1K" target="_blank">
+                    <div>
+                        <img style="display: inline-block;" src = "pnn_2.png"  height = "21" width = "18" alt = "Pinterest Logo"> 
+                        <p class="p-custom"> Pinterest</p>
+                    </div>  
+                </a>
+            </div>
+            </div>
+    
+            <div>
+            <div>
+                <a class="footer-index" href="Index.html">HOME</a>|
+                <a class="footer-index" href="All_Recipes.html">ALL RECIPES</a>|
+                <a class="footer-index" href="About.html">ABOUT</a>|
+                <a class="footer-index" href="Contact.html">CONTACT</a>
+            </div>
+                <p>Copyright &copy; 2023 Christine's Recipe<br>All Rights Reserved</p>
+            </div>
+    
+            <div>
+            <div>
+                <a href="tel:+6012-345-6789"> Tel:+6012-345-6789 </a>
+            </div><br>
+                <a href="mailto:christinekenzie@gmail.com"> Email: christinekenzie@gmail.com</a>
+            </div>
+        </div>
+    </footer>
+
+    
+</body>
+</html>
