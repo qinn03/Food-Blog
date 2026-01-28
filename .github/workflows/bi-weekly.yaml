@@ -13,12 +13,6 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-            - name: Check if today is a cutoff date
-              id: cutoff
-              run: |
-                  chmod +x ./scripts/build/check-cutoff.sh
-                  ./scripts/build/check-cutoff.sh
-
             - name: Generate RC release tag
               if: steps.cutoff.outputs.should_cutoff == 'true'
               id: tag
