@@ -1,0 +1,112 @@
+# Update RC build with latest changes from main branch
+# This workflow increments the RC version (e.g., v1.2.0-rc.0 -> v1.2.0-rc.1)
+# and incorporates the latest changes from main branch
+name: Update RC Build
+
+on:
+    workflow_dispatch:
+        inputs:
+            ref:
+                description: 'Branch or ref to build from (defaults to main)'
+                required: false
+                default: 'main'
+                type: string
+            jira_ticket:
+                description: 'Jira ticket key'
+                required: false
+                type: string
+
+
+jobs:
+    update-rc:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+              with:
+                  fetch-depth: 0
+                  ref: ${{ inputs.ref || 'main' }} # outer ref is to see which branch has the file and inner ref is to see which branch to checkout and build from
+
+            - name: Generate new RC tag
+              id: tag
+              run: |
+                  # Fetch all tags from remote
+                  git fetch --tags
+
+                  # Find the latest RC tag for current minor version
+                  LATEST_RC_TAG=$(git tag -l "v*-rc.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+$' | sort -V | tail -n 1)
+
+                  if [ -z "$LATEST_RC_TAG" ]; then
+                      echo "❌ No RC tags found. Please create an initial RC release first using the bi-weekly cutoff build."
+                      exit 1
+                  fi
+
+                  echo "Latest RC tag: $LATEST_RC_TAG"
+
+                  # Extract the version components
+                  # Example: v1.2.0-rc.0 -> MAJOR=1, MINOR=2, PATCH=0, RC=0
+                  VERSION_PART=$(echo $LATEST_RC_TAG | sed 's/^v//' | sed 's/-rc\..*//')
+                  RC_PART=$(echo $LATEST_RC_TAG | sed 's/.*-rc\.//')
+
+                  # Increment RC version
+                  NEW_RC=$((RC_PART + 1))
+
+                  # Create new RC tag
+                  NEW_TAG="v${VERSION_PART}-rc.${NEW_RC}"
+
+                  # Check if tag already exists
+                  if git tag -l | grep -q "^${NEW_TAG}$"; then
+                      echo "❌ Tag $NEW_TAG already exists."
+                      exit 1
+                  fi
+
+                  echo "tag_name=${NEW_TAG}" >> $GITHUB_OUTPUT
+                  echo "previous_rc=${LATEST_RC_TAG}" >> $GITHUB_OUTPUT
+                  echo "✅ Will create new RC tag: ${NEW_TAG} (from ${LATEST_RC_TAG})"
+
+
+
+            - name: Configure git # to set git user for tagging
+              if: ${{ !inputs.dry_run }}
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            - name: Create and push new RC tag # manually create and push tag
+              if: ${{ !inputs.dry_run }}
+              run: |
+                  TAG_NAME="${{ steps.tag.outputs.tag_name }}"
+                  PREVIOUS_RC="${{ steps.tag.outputs.previous_rc }}"
+
+                  # Create annotated tag from current main branch
+                  git tag -a "$TAG_NAME" -m "RC release $TAG_NAME with latest changes from main (previous: $PREVIOUS_RC)"
+
+                  # Push the new tag
+                  git push origin "$TAG_NAME"
+
+                  echo "✅ Created and pushed tag: $TAG_NAME"
+
+            - name: Create GitHub RC Pre-Release
+              if: ${{ !inputs.dry_run }}
+              uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
+              with:
+                  tag_name: ${{ steps.tag.outputs.tag_name }}
+                  name: ${{ steps.tag.outputs.tag_name }}
+                  body: |
+                      Updated RC build with latest changes from main branch
+
+                      Previous RC: ${{ steps.tag.outputs.previous_rc }}
+                      Build profile: Production
+
+                      ${{ inputs.jira_ticket && format('Jira Ticket: {0}', inputs.jira_ticket) || '' }}
+
+                      Released by: @${{ github.actor }}
+                      Workflow: [${{ github.workflow }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+                  generate_release_notes: true
+                  prerelease: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+           
