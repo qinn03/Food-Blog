@@ -68,23 +68,23 @@ jobs:
 
 
 
-            - name: Configure git # to set git user for tagging
-              run: |
-                  git config user.name "github-actions[bot]"
-                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            # - name: Configure git # to set git user for tagging
+            #   run: |
+            #       git config user.name "github-actions[bot]"
+            #       git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            - name: Create and push new RC tag # manually create and push tag
-              run: |
-                  TAG_NAME="${{ steps.tag.outputs.tag_name }}"
-                  PREVIOUS_RC="${{ steps.tag.outputs.previous_rc }}"
+            # - name: Create and push new RC tag # manually create and push tag
+            #   run: |
+            #       TAG_NAME="${{ steps.tag.outputs.tag_name }}"
+            #       PREVIOUS_RC="${{ steps.tag.outputs.previous_rc }}"
 
-                  # Create annotated tag from current main branch
-                  git tag -a "$TAG_NAME" -m "RC release $TAG_NAME with latest changes from main (previous: $PREVIOUS_RC)"
+            #       # Create annotated tag from current main branch
+            #       git tag -a "$TAG_NAME" -m "RC release $TAG_NAME with latest changes from main (previous: $PREVIOUS_RC)"
 
-                  # Push the new tag
-                  git push origin "$TAG_NAME"
+            #       # Push the new tag
+            #       git push origin "$TAG_NAME"
 
-                  echo "✅ Created and pushed tag: $TAG_NAME"
+            #       echo "✅ Created and pushed tag: $TAG_NAME"
 
             - name: Create GitHub RC Pre-Release
               uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
