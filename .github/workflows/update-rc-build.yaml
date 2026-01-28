@@ -69,13 +69,11 @@ jobs:
 
 
             - name: Configure git # to set git user for tagging
-              if: ${{ !inputs.dry_run }}
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
             - name: Create and push new RC tag # manually create and push tag
-              if: ${{ !inputs.dry_run }}
               run: |
                   TAG_NAME="${{ steps.tag.outputs.tag_name }}"
                   PREVIOUS_RC="${{ steps.tag.outputs.previous_rc }}"
@@ -89,7 +87,6 @@ jobs:
                   echo "✅ Created and pushed tag: $TAG_NAME"
 
             - name: Create GitHub RC Pre-Release
-              if: ${{ !inputs.dry_run }}
               uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
               with:
                   tag_name: ${{ steps.tag.outputs.tag_name }}
@@ -100,7 +97,7 @@ jobs:
                       Previous RC: ${{ steps.tag.outputs.previous_rc }}
                       Build profile: Production
 
-                      ${{ inputs.jira_ticket && format('Jira Ticket: {0}', inputs.jira_ticket) || '' }}
+                      ${{ inputs.jira_ticket && format('Jira Ticket that triggered this build: {0}', inputs.jira_ticket) || '' }}
 
                       Released by: @${{ github.actor }}
                       Workflow: [${{ github.workflow }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
