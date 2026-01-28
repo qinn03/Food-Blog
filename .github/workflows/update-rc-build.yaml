@@ -7,11 +7,11 @@ name: Adhoc RC Build
 on:
     workflow_dispatch:
         inputs:
-            ref:
-                description: 'Branch or ref to build from (defaults to main)' #  outer ref to see which branch has the build file
-                required: false
-                default: 'main'
-                type: string
+            # ref:
+            #     description: 'Branch or ref to build from (defaults to main)' #  outer ref to see which branch has the build file
+            #     required: false
+            #     default: 'main'
+            #     type: string
             jira_ticket:
                 description: 'Jira ticket key'
                 required: false
@@ -27,7 +27,7 @@ jobs:
               uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
               with:
                   fetch-depth: 0
-                  ref: ${{ inputs.ref || 'main' }} # inner ref to see which branch to checkout and build from
+                  #ref: ${{ inputs.ref || 'main' }} # inner ref to see which branch to checkout and build from
 
             - name: Generate new RC tag
               id: tag
@@ -39,8 +39,8 @@ jobs:
                   LATEST_RC_TAG=$(git tag -l "v*-rc.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+$' | sort -V | tail -n 1)
 
                   if [ -z "$LATEST_RC_TAG" ]; then
-                      LATEST_RC_TAG="v1.1.0-rc.0"
-                      echo "❌ No RC tags found. Starting from $LATEST_RC_TAG"
+                    echo "❌ No RC tags found. Please create an initial RC release first."
+                    exit 1
                   fi
 
                   echo "Latest RC tag: $LATEST_RC_TAG"
@@ -72,10 +72,10 @@ jobs:
                   tag_name: ${{ steps.tag.outputs.tag_name }}
                   name: ${{ steps.tag.outputs.tag_name }}
                   body: |
-                      ${{ inputs.jira_ticket && format('Jira Ticket that triggered this build: {0}', inputs.jira_ticket) || '' }}
-
                       Previous RC: ${{ steps.tag.outputs.previous_rc }}
                       Build profile: Production
+
+                      ${{ inputs.jira_ticket && format('Jira Ticket: [{0}](https://rytbank.atlassian.net/browse/{0})', inputs.jira_ticket) || '' }}
 
                       Released by: @${{ github.actor }}
                       Workflow: [${{ github.workflow }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
